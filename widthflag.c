@@ -1,0 +1,95 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   widthflag.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/25 22:00:26 by dmontoya          #+#    #+#             */
+/*   Updated: 2017/11/25 23:16:11 by dmontoya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libftprintf.h"
+
+void	intminus_flag(char *res, t_pf *data, char type)
+{
+	if (data->flags[2] == 88 && res[0] != '-')
+		prefixtype(type);
+	ft_putstr(res);
+}
+
+void	min_width(t_pf *data, int width)
+{
+	while (width-- > 0)
+	{
+		if (data->flags[1] == 1)
+			ft_putchar('0');
+		else
+			ft_putchar(' ');
+	}
+}
+
+void	ifield_width(int width, char *res, t_pf *data, char type)
+{
+	data->len += data->flags[3];
+	if (data->flags[2] >= 45)
+		intminus_flag(res, data, type);
+	if ((data->flags[2] == 88 || data->flags[2] == 43) && res[0] != '-')
+		width--;
+	if (data->flags[1] == 1 && data->flags[2] <= 43)
+	{
+		if (res[0] == '-')
+		{
+			data->flags[2] = 0;
+			ft_putchar('-');
+			res++;
+		}
+		else if (data->flags[2] == 43)
+			prefixtype(type);
+	}
+	min_width(data, width);
+	if (data->flags[2] < 45)
+	{
+		if (data->flags[1] != 1 && data->flags[2] == 43 && res[0] != '-')
+			ft_putchar('+');
+		ft_putstr(res);
+	}
+}
+
+void	ufield_width(int width, char *res, t_pf *data, char type)
+{
+	data->len += data->flags[3];
+	if (ft_atoi(res) == 0)
+		return (min_width(data, width));
+	if (data->flags[2] >= 45)
+	{
+		if (data->flags[4] != 0)
+			prefixtype(type);
+		ft_putstr(res);
+	}
+	if (data->flags[2] < 45 && data->flags[1] == 1 && data->flags[4] != 0)
+		prefixtype(type);
+	if (data->flags[4] != 0 && type != 'u')
+		width = width - data->flags[4];
+	min_width(data, width);
+	if (data->flags[2] < 45)
+	{
+		if (data->flags[4] != 0 && data->flags[1] != 1)
+			prefixtype(type);
+		ft_putstr(res);
+	}
+}
+
+int		width_flag(const char *restrict s, int flag, int end)
+{
+	int width;
+
+	width = 0;
+	while (((ft_isdigit(s[flag]) == 0) || s[flag] == '0') && flag < end)
+		if (s[flag++] == '.')
+			return (width);
+	while (ft_isdigit(s[flag]) != 0)
+		width = (width * 10) + (s[flag++] - 48);
+	return (width);
+}
