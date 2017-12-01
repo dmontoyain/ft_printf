@@ -88,8 +88,6 @@ int			checkstring(const char *restrict s, size_t i, t_pf *data)
 		}
 		if ((s[i] == '%') || s[i + 1] == '\0')
 		{
-			if (s[i + 1] == 'S')
-				return (i + 2);
 			if (s[i + 1] == '\0' && s[i] != '%')
 				i++;
 			tmp = ft_strsub(s, j, i - j);
