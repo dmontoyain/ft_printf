@@ -48,18 +48,15 @@ void	wchar_type(va_list ap, t_pf *data)
 	width = data->flags[3] - 1;
 	if (width > 0)
 		min_width(data, width, str);
+	if (c == 0)
+	{
+		data->len++;
+		ft_putchar('\0');
+	}
 	else
 	{
-		if (c == 0)
-		{
-			data->len++;
-			ft_putchar('\0');
-		}
-		else
-		{
-			data->len += ft_strlen(str);
-			ft_putstr(str);
-		}
+		data->len += ft_strlen(str);
+		ft_putstr(str);
 	}
 	free(str);
 }
