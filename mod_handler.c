@@ -40,6 +40,8 @@ uintmax_t	uint_modifiers(va_list ap, t_pf *data)
 		return (va_arg(ap, unsigned long long));
 	if (data->mod[i] == 'l' && data->type == 'U')
 		return (va_arg(ap, unsigned long long));
+	if (data->mod[i] == 'h' && data->mod[i + 1] == 'h' && data->type == 'O')
+		exit(-1);
 	if (data->mod[i] == 'h' && data->mod[i + 1] == 'h')
 		return ((unsigned char)va_arg(ap, int));
 	if (data->mod[i] == 'l' || data->type == 'U' || data->type == 'O')

@@ -22,7 +22,7 @@ void		wstrtostr(wchar_t *wstr, char *str)
 	while (wstr[i])
 	{
 		ft_unicode_conv(wstr[i], str + pos);
-		pos = pos + ft_wcharlen(wstr[++i]);
+		pos = pos + ft_wcharlen(wstr[i++]);
 	}
 }
 
@@ -36,7 +36,6 @@ void		swchar_precision(t_pf *data, wchar_t *wstr)
 	while (i < data->flags[5])
 		precision = precision + ft_wcharlen(wstr[i++]);
 	data->flags[5] = precision;
-	ft_putnbr(precision);
 }
 
 void		swchar_type(va_list ap, t_pf *data)
@@ -66,8 +65,7 @@ void		swchar_type(va_list ap, t_pf *data)
 		data->len += data->flags[3];
 	else
 		data->len += ft_strlen(res); //wcstrlen o strlen
-	if (width > 0)
-		min_width(data, width, res);
+	min_width(data, width, res);
 	ft_putstr(res);
 	free(res);
 }
@@ -119,19 +117,10 @@ void		p_type(va_list ap, t_pf *data)
 	if (data->flags[5] > 0 && data->flags[5] > (int)ft_strlen(str))
 		str = precision_adjust(str, data, ft_strlen(str));
 	if (width > 0)
-		data->len += data->flags[3];
+		pointer_width(width, str, data);
 	else
+	{
 		data->len += ft_strlen(str) + 2;
-	if (data->flags[2] >= 45)
-	{
-		ft_putstr("0x");
-		if (str != 0)
-			ft_putstr(str);
-	}
-	while (width-- > 0)
-		ft_putchar(' ');
-	if (data->flags[2] < 45)
-	{
 		ft_putstr("0x");
 		if (str != 0)
 			ft_putstr(str);

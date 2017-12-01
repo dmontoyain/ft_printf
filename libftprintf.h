@@ -53,6 +53,7 @@ void				restart_modsflags(t_pf *data);
 int					search_end(const char *restrict s, int i, int x);
 void				ifield_width(int wth, char *r, t_pf *data, char type);
 void				ufield_width(int wth, char *r, t_pf *data, char type);
+void	pointer_width(int width, char *res, t_pf *data);
 char				*precision_adjust(char *str, t_pf *data, int len);
 void				prefixtype(char type);
 void				undet_behavior(t_pf *data, char **res);

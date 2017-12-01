@@ -16,18 +16,18 @@ void	ft_unicode_conv(wchar_t c, char *str)
 {
 	if (c <= 0x7F)
 		str[0] = (unsigned char)c;
-	else if (c < (1 << 11))
+	else if (c <= 0x7FF)
 	{
 		str[0] = (unsigned char)((c >> 6) | 0xC0);
 		str[1] = (unsigned char)((c & 0x3F) | 0x80);
 	}
-	else if (c < (1 << 16))
+	else if (c <= 0xFFFF)
 	{
 		str[0] = (unsigned char)(((c >> 12)) | 0xE0);
 		str[1] = (unsigned char)(((c >> 6) & 0x3F) | 0x80);
 		str[2] = (unsigned char)((c & 0x3F) | 0x80);
 	}
-	else if (c < (1 << 21))
+	else if (c <= 0x10FFFF)
 	{
 		str[0] = (unsigned char)(((c >> 18)) | 0xF0);
 		str[1] = (unsigned char)(((c >> 12) & 0x3F) | 0x80);
@@ -47,16 +47,19 @@ void	wchar_type(va_list ap, t_pf *data)
 	ft_unicode_conv(c, str);
 	width = data->flags[3] - 1;
 	if (width > 0)
-		min_width(data, width, str);
-	if (c == 0)
-	{
-		data->len++;
-		ft_putchar('\0');
-	}
+		ifield_width(width, str, data, 'C');
 	else
 	{
-		data->len += ft_strlen(str);
-		ft_putstr(str);
+		if (c == 0)
+		{
+			data->len++;
+			ft_putchar('\0');
+		}
+		else
+		{
+			data->len += ft_strlen(str);
+			ft_putstr(str);
+		}
 	}
 	free(str);
 }

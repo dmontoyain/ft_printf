@@ -86,6 +86,33 @@ void	ufield_width(int width, char *res, t_pf *data, char type)
 	}
 }
 
+void	pointer_width(int width, char *res, t_pf *data)
+{
+	data->len += data->flags[3];
+	if (data->flags[2] >= 45)
+	{
+		ft_putstr("0x");
+		if (res != 0)
+			ft_putstr(res);
+	}
+	if (data->flags[2] < 45 && data->flags[1] == 1)
+		ft_putstr("0x");
+	while (width-- > 0)
+	{
+		if (data->flags[1] == 1)
+			ft_putchar('0');
+		else
+			ft_putchar(' ');
+	}
+	if (data->flags[2] < 45)
+	{
+		if (data->flags[1] != 1)
+			ft_putstr("0x");
+		if (res != 0)
+			ft_putstr(res);
+	}
+}
+
 int		width_flag(const char *restrict s, int flag, int end)
 {
 	int width;

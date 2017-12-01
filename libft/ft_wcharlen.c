@@ -15,17 +15,14 @@
 int		ft_wcharlen(wchar_t c)
 {
 	int len;
-	unsigned int ud;
-	
-	ud = (unsigned int)c;
 
-	if (c < 0x7F)
+	if (c <= 0x7F)
 		len = 1;
-	else if (c < 0x7FF)
+	else if (c <= 0x7FF)
 		len = 2;
-	else if (c < 0xFFFF)
+	else if (c <= 0xFFFF)
 		len = 3;
-	else if (c < 0x10FFFF)
+	else if (c <= 0x10FFFF)
 		len = 4;
 	else
 		len = 0;
