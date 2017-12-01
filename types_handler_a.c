@@ -36,6 +36,7 @@ void		swchar_precision(t_pf *data, wchar_t *wstr)
 	while (i < data->flags[5])
 		precision = precision + ft_wcharlen(wstr[i++]);
 	data->flags[5] = precision;
+	ft_putnbr(precision);
 }
 
 void		swchar_type(va_list ap, t_pf *data)
@@ -43,7 +44,6 @@ void		swchar_type(va_list ap, t_pf *data)
 	int		width;
 	char	*res;
 	wchar_t	*wstr;
-	size_t	len;
 
 	wstr = va_arg(ap, wchar_t *);
 	if (wstr == NULL)
@@ -51,10 +51,9 @@ void		swchar_type(va_list ap, t_pf *data)
 		data->len += 6;
 		return(ft_putstr("(null)"));
 	}
-	if (data->flags[5] > 0)
-		;
-	len = ft_wcstrlen(wstr);
-	res = ft_strnew(len);
+//	if (data->flags[5] > 0)
+//		swchar_precision(data, wstr);
+	res = ft_strnew(ft_wcstrlen(wstr));
 	wstrtostr(wstr, res);
 	if (ft_strcmp(res, "(null)") == 0)
 	{
