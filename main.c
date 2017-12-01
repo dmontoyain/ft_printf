@@ -32,8 +32,8 @@ int main()
 	//ft_putstr("\n");
 	//ft_putchar(sizeof(hex2));
 	//char c = 'o';
-	i = ft_printf("%C", -1);
-	j = printf("%C", -1);
+	i = ft_printf("my printf: %C\n", 0);
+	j = printf("ur printf: %C\n", 0);
 	printf("my: %d\n", i);
 	printf("ur: %d", j);
 //	printf("@moulitest: %e\n", -42.8);

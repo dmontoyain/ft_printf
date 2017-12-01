@@ -14,6 +14,8 @@
 
 void	undet_behavior(t_pf *data, char **res)
 {
+	if (data->type == 'C' || data->type == 'S' || data->type == 's')
+		data->flags[4] = 0;
 	if (data->flags[5] == 0 && data->flags[6] == 1 && (data->type == 's' || data->type == 'S'))
 		res[0] = ft_strnew(0);
 	if (data->flags[2] >= 45 && data->flags[1] == 1)

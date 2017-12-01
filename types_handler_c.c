@@ -40,23 +40,28 @@ void	wchar_type(va_list ap, t_pf *data)
 {
 	int			width;
 	wchar_t		c;
-	char		*str;
+	char		*res;
 
+	data->type = 'C';
 	c = va_arg(ap, wchar_t);
-	str = ft_strnew(ft_wcharlen(c));
-	ft_unicode_conv(c, str);
+	res = ft_strnew(ft_wcharlen(c));
+	ft_unicode_conv(c, res);
+	undet_behavior(data, &res);
 	width = data->flags[3] - 1;
-	if (c == 0)
-	{
-		data->len++;
-		ft_putchar('\0');
-	}
 	if (width > 0)
-		ifield_width(width, str, data, 'C');
+		ufield_width(width, res, data, 'C');
 	else
 	{
-			data->len++; //ft_strlen(str) o sumarle uno de un char y ya
-			ft_putstr(str);
+		if (c == 0)
+		{
+			ft_putchar('\0');
+			data->len++;
+		}
+		else
+		{
+			data->len += ft_strlen(res);
+			ft_putstr(res);
+		}
 	}
-	free(str);
+	free(res);
 }
