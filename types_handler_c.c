@@ -44,13 +44,22 @@ void	wchar_type(va_list ap, t_pf *data)
 
 	c = va_arg(ap, wchar_t);
 	str = ft_strnew(ft_wcharlen(c));
+	ft_unicode_conv(c, str);
 	width = data->flags[3] - 1;
 	if (width > 0)
 		ifield_width(width, str, data, 'C');
 	else
 	{
-		data->len += ft_strlen(str);
-		ft_putstr(str);
+		if (c == 0)
+		{
+			data->len++;
+			ft_putchar('\0');
+		}
+		else
+		{
+			data->len += ft_strlen(str);
+			ft_putstr(str);
+		}
 	}
 	free(str);
 }

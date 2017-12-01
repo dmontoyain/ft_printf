@@ -18,7 +18,7 @@ void	percent_type(t_pf *data)
 	int		width;
 
 	p = "1";
-	undet_behavior(data, &p, '%');
+	undet_behavior(data, &p);
 	width = data->flags[3] - 1;
 	if (width > 0)
 		data->len += data->flags[3];
@@ -26,7 +26,7 @@ void	percent_type(t_pf *data)
 		data->len += 1;
 	if (data->flags[2] >= 45)
 		ft_putchar('%');
-	min_width(data, width);
+	min_width(data, width, p);
 	if (data->flags[2] < 45)
 		ft_putchar('%');
 }
@@ -49,7 +49,7 @@ void	c_type(va_list ap, t_pf *data, char w)
 		c = w;
 	if (data->flags[2] >= 45)
 		ft_putchar(c);
-	min_width(data, width);
+	min_width(data, width, &w);
 	if (data->flags[2] < 45)
 		ft_putchar(c);
 }
@@ -58,23 +58,25 @@ void	di_type(va_list ap, t_pf *data)
 {
 	int		width;
 	char	*res;
-	int		len;
+	int		l;
 
 	res = ft_imaxtoa(sint_modifiers(ap, data));
-	undet_behavior(data, &res, 'd');
-	len = ft_strlen(res);
-	if (data->flags[5] >= len)
-		res = precision_adjust(res, data, len);
-	if (res[0] != '-' && data->flags[7] == 1)
+	undet_behavior(data, &res);
+	l = ft_strlen(res);
+	if (data->flags[5] >= l)
+		res = precision_adjust(res, data, l);
+	if (res[0] != '-' && data->flags[7] == 1 && data->flags[2] >= 45)
 		res = ft_strjoin(" ", res);
 	width = data->flags[3] - ft_strlen(res);
 	if (width > 0)
 		ifield_width(width, res, data, 'd');
 	else
 	{
-		if (data->flags[1] != 1 && data->flags[2] == 43 && res[0] != '-')
+		if (res[0] != '-' && data->flags[7] == 1)
+			res = ft_strjoin(" ", res);
+		if (data->flags[2] == 43 && res[0] != '-')
 		{
-			data->len += 1;
+			data->len = data->len + 1;
 			ft_putchar('+');
 		}
 		ft_putstr(res);
@@ -83,33 +85,28 @@ void	di_type(va_list ap, t_pf *data)
 	free(res);
 }
 
-void	u_type(va_list ap, t_pf *data)
+void	u_type(va_list ap, t_pf *d)
 {
 	int		width;
 	char	*res;
 	int		len;
 
-	res = ft_uimaxtoa(uint_modifiers(ap, data));
+	res = ft_uimaxtoa(uint_modifiers(ap, d));
 	len = ft_strlen(res);
-	if (data->flags[5] > len)
-		res = precision_adjust(res, data, len);
-	width = data->flags[3] - ft_strlen(res);
+	if (d->flags[5] > len)
+		res = precision_adjust(res, d, len);
+	undet_behavior(d, &res);
+	if (d->flags[7] == 1 && d->flags[2] >= 45)
+		res = ft_strjoin(" ", res);
+	width = d->flags[3] - ft_strlen(res);
 	if (width > 0)
-		ufield_width(width, res, data, 'u');
+		ufield_width(width, res, d, 'u');
 	else
 	{
-		data->len += ft_strlen(res);
+		if (d->flags[7] == 1)
+			res = ft_strjoin(" ", res);
+		d->len += ft_strlen(res);
 		ft_putstr(res);
 	}
 	free(res);
-}
-
-void	number_type(char w, va_list ap, t_pf *data)
-{
-	if (w == 'd' || w == 'i' || w == 'D')
-		di_type(ap, data);
-	else if (w == 'c' || w == 'C' || w == 'Z')
-		c_type(ap, data, w);
-	else if (w == 'u' || w == 'U')
-		u_type(ap, data);
 }

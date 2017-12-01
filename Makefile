@@ -6,7 +6,7 @@
 #    By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/22 20:24:48 by dmontoya          #+#    #+#              #
-#    Updated: 2017/11/25 23:39:33 by dmontoya         ###   ########.fr        #
+#    Updated: 2017/11/27 20:34:12 by dmontoya         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -21,7 +21,9 @@ FUNCTIONS = ft_printf \
 			mod_handler \
 			num_utilities \
 			types_handler_c \
-			widthflag
+			types_handler_d \
+			widthflag \
+			utilities
 
 LIBFTFUNCTIONS = ft_putnbr \
 				ft_putchar \
@@ -41,7 +43,10 @@ LIBFTFUNCTIONS = ft_putnbr \
 				ft_itoa_base \
 				ft_uitoa_base \
 				ft_str_touppercase \
-				ft_strdup
+				ft_strdup \
+				ft_strcmp \
+				ft_intlen \
+				ft_memalloc
 
 INCL = -I $(LIB)libft.h -I libftprintf.h
 LIB = libft/
@@ -55,14 +60,14 @@ FLAGS = -Wall -Wextra -Werror
 all: $(PFOBJ) $(LIBOBJ) $(NAME)
 
 $(NAME):
-	$(CC) $(FLAGS) $(INCL) -c $(C_FILES) $(addprefix $(LIB), $(LIBC_FILES))
-	ar rcs $(NAME) $(OBJ_FILES) $(LIBOBJ_FILES)
+	@$(CC) $(FLAGS) -g $(INCL) -c $(C_FILES) $(addprefix $(LIB), $(LIBC_FILES))
+	@ar rcs $(NAME) $(OBJ_FILES) $(LIBOBJ_FILES)
 
 clean:
-	rm -rf $(OBJ_FILES) $(LIBOBJ_FILES)
+	@rm -rf $(OBJ_FILES) $(LIBOBJ_FILES)
 
 fclean:	clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

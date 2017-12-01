@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 16:47:14 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/25 23:08:53 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/11/29 16:11:14 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ uintmax_t	uint_modifiers(va_list ap, t_pf *data)
 	i = 0;
 	if (data->mod[2] != '0')
 		i++;
-	if (data->mod[i] == 'l' && data->mod[1 + i] == 'l')
+	if (data->mod[i] == 'l' && data->mod[i + 1] == 'l')
 		return (va_arg(ap, unsigned long long));
-	if (data->mod[i] == 'h' && data->mod[1 + i] == 'h')
+	if (data->mod[i] == 'l' && data->type == 'U')
+		return (va_arg(ap, unsigned long long));
+	if (data->mod[i] == 'h' && data->mod[i + 1] == 'h')
 		return ((unsigned char)va_arg(ap, int));
-	if (data->mod[i] == 'l' || data->type == 'U')
+	if (data->mod[i] == 'l' || data->type == 'U' || data->type == 'O')
 		return (va_arg(ap, unsigned long));
 	if (data->mod[i] == 'h')
 		return ((unsigned short)va_arg(ap, int));
@@ -53,29 +55,30 @@ uintmax_t	uint_modifiers(va_list ap, t_pf *data)
 
 int			check_hmod(t_pf *d, char c)
 {
-	int i;
-	int tmp;
-	int h;
+	unsigned int	i;
+	int				tmp;
+	int				h;
 
-	i = -1;
+	i = 0;
 	tmp = 0;
 	h = 0;
-	while (++i < 3)
+	while (i < 3)
 	{
 		if (d->mod[i] == 'l' || d->mod[i] == 'j' || d->mod[i] == 'z')
 			tmp++;
 		if ((d->mod[i] == 'h' && tmp > 0) || (tmp > 0 && h > 0))
-			if (d->type == 'd')
+			if (c == 'd')
 				return ('u');
 		if (d->mod[i] == 'h' && tmp == 0)
 			h++;
+		i++;
 	}
 	return (c);
 }
 
 void		modifiers(const char *restrict s, int f, int end, t_pf *data)
 {
-	int i;
+	unsigned int i;
 
 	i = 0;
 	while (f < end)

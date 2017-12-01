@@ -6,34 +6,48 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/25 21:56:29 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/25 23:13:32 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/11/27 14:17:09 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	undet_behavior(t_pf *data, char **res, char w)
+void	undet_behavior(t_pf *data, char **res)
 {
+	if (data->flags[5] == 0 && data->flags[6] == 1 && (data->type == 's' || data->type == 'S'))
+		res[0] = ft_strnew(0);
 	if (data->flags[2] >= 45 && data->flags[1] == 1)
 		data->flags[1] = 0;
 	if (ft_atoi(res[0]) == 0 && data->flags[6] == 1 && data->flags[5] == 0)
-		res[0] = ft_strnew(0);
-	if (ft_atoi(res[0]) == 0 && w != 'o')
+	{
+			res[0] = ft_strnew(0);
+			if (data->type != 'o' && data->type != 'O')
+				data->flags[4] = 0;
+	}
+	if (data->flags[6] == 1 && data->flags[5] > 0 && data->flags[4] == 1)
 		data->flags[4] = 0;
-	if (data->flags[6] == 1 && data->flags[1] == 1)
+	if (ft_atoi(res[0]) == 0 && data->flags[6] == 0 && data->flags[4] != 0)
+		data->flags[4] = 0;
+	if (data->flags[6] == 1 && data->type != 's' && data->type != 'S' && data->type != '%')
 		data->flags[1] = 0;
 	if (data->flags[2] == 43 || data->flags[2] == 88)
 		data->flags[7] = 0;
 }
 
-int		search_end(const char *restrict s, int i)
+int		search_end(const char *restrict s, int i, int x)
 {
-	while (s[i] != 'c' && s[i] != 'd' && s[i] != 's' && s[i] != 'D'
+	if (x == 0)
+		while (s[i] != 'c' && s[i] != 'd' && s[i] != 's' && s[i] != 'D'
 			&& s[i] != 'S' && s[i] != 'C' && s[i] != 'x' && s[i] != 'X'
 			&& s[i] != 'p' && s[i] != 'i' && s[i] != 'o' && s[i] != 'u'
 			&& s[i] != 'U' && s[i] != 'O' && s[i] != '\0' && s[i] != 'b'
-			&& s[i] != '%' && s[i] != 'Z')
-		i++;
+			&& s[i] != '%' && s[i] != 'Z' && s[i] != 'f' && s[i] != 'F')
+			i++;
+	else
+		while ((s[i] == '.' || s[i] == 'l' || s[i] == 'h' || s[i] == '#' 
+			|| s[i] == '-' || s[i] == '+' || s[i] == 'j' || s[i] == 'z'
+			|| ft_isdigit(s[i]) == 1 || s[i] == ' ') && s[i] != '\0')
+				i++;
 	return (i);
 }
 
@@ -68,6 +82,7 @@ char	*precision_adjust(char *str, t_pf *data, int len)
 
 void	restart_modsflags(t_pf *data)
 {
+	data->type = '0';
 	data->flags[1] = 0;
 	data->flags[2] = 0;
 	data->flags[3] = 0;
@@ -78,6 +93,7 @@ void	restart_modsflags(t_pf *data)
 	data->mod[0] = '0';
 	data->mod[1] = '0';
 	data->mod[2] = '0';
+	data->mod[3] = '\0';
 }
 
 void	prefixtype(char type)
@@ -86,7 +102,7 @@ void	prefixtype(char type)
 		return (ft_putstr("0x"));
 	if (type == 'X')
 		return (ft_putstr("0X"));
-	if (type == 'o')
+	if (type == 'o' || type == 'O')
 		return (ft_putchar('0'));
 	if (type == 'd')
 		return (ft_putchar('+'));

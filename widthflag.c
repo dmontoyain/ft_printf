@@ -19,8 +19,13 @@ void	intminus_flag(char *res, t_pf *data, char type)
 	ft_putstr(res);
 }
 
-void	min_width(t_pf *data, int width)
+void	min_width(t_pf *data, int width, char *res)
 {
+	if (res[0] != '-' && data->flags[7] == 1 && data->flags[2] < 45)
+	{
+		ft_putchar(' ');
+		width--;
+	}
 	while (width-- > 0)
 	{
 		if (data->flags[1] == 1)
@@ -48,7 +53,7 @@ void	ifield_width(int width, char *res, t_pf *data, char type)
 		else if (data->flags[2] == 43)
 			prefixtype(type);
 	}
-	min_width(data, width);
+	min_width(data, width, res);
 	if (data->flags[2] < 45)
 	{
 		if (data->flags[1] != 1 && data->flags[2] == 43 && res[0] != '-')
@@ -60,8 +65,8 @@ void	ifield_width(int width, char *res, t_pf *data, char type)
 void	ufield_width(int width, char *res, t_pf *data, char type)
 {
 	data->len += data->flags[3];
-	if (ft_atoi(res) == 0)
-		return (min_width(data, width));
+	if (ft_strlen(res) == 0 && ft_atoi(res) == 0)
+		return (min_width(data, width, res));
 	if (data->flags[2] >= 45)
 	{
 		if (data->flags[4] != 0)
@@ -72,7 +77,7 @@ void	ufield_width(int width, char *res, t_pf *data, char type)
 		prefixtype(type);
 	if (data->flags[4] != 0 && type != 'u')
 		width = width - data->flags[4];
-	min_width(data, width);
+	min_width(data, width, res);
 	if (data->flags[2] < 45)
 	{
 		if (data->flags[4] != 0 && data->flags[1] != 1)

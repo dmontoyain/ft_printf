@@ -22,7 +22,7 @@ void	ox_type(va_list ap, t_pf *data, char w)
 	if ((w == 'x' || w == 'X') && data->flags[4] == 1)
 		data->flags[4] = 2;
 	res = uitoa_base(uint_modifiers(ap, data), getbase(w));
-	undet_behavior(data, &res, w);
+	undet_behavior(data, &res);
 	if (w == 'X')
 		str_touppercase(res);
 	if (data->flags[5] >= (len = ft_strlen(res)))
@@ -32,7 +32,7 @@ void	ox_type(va_list ap, t_pf *data, char w)
 		ufield_width(width, res, data, w);
 	else
 	{
-		if (data->flags[4] != 0 && (ft_atoi(res) > 0 || w == 'o'))
+		if (data->flags[4] != 0 && (ft_atoi(res) > 0 || w == 'o' || w == 'O'))
 			prefixtype(w);
 		ft_putstr(res);
 		data->len += ft_strlen(res) + data->flags[4];

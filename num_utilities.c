@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 17:21:47 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/25 23:13:01 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/11/27 20:29:39 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int			getbase(char w)
 {
-	if (w == 'o')
+	if (w == 'o' || w == 'O')
 		return (8);
 	if (w == 'x' || w == 'X')
 		return (16);
 	if (w == 'b')
 		return (2);
-	return (0);
+	return (10);
 }
 
 size_t		ft_uimaxlen(uintmax_t nb)
