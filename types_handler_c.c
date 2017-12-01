@@ -46,20 +46,17 @@ void	wchar_type(va_list ap, t_pf *data)
 	str = ft_strnew(ft_wcharlen(c));
 	ft_unicode_conv(c, str);
 	width = data->flags[3] - 1;
+	if (c == 0)
+	{
+		data->len++;
+		ft_putchar('\0');
+	}
 	if (width > 0)
 		ifield_width(width, str, data, 'C');
 	else
 	{
-		if (c == 0)
-		{
-			data->len++;
-			ft_putchar('\0');
-		}
-		else
-		{
-			data->len += ft_strlen(str);
+			data->len++; //ft_strlen(str) o sumarle uno de un char y ya
 			ft_putstr(str);
-		}
 	}
 	free(str);
 }

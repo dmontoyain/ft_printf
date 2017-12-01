@@ -31,25 +31,25 @@ void	percent_type(t_pf *data)
 		ft_putchar('%');
 }
 
-void	c_type(va_list ap, t_pf *data, char w)
+void	c_type(va_list ap, t_pf *data)
 {
 	unsigned char	c;
 	int				width;
 
 	width = data->flags[3] - 1;
-	if (w == 'C' || (data->mod[0] == 'l' && w == 'c'))
+	if (data->type == 'C' || (data->mod[0] == 'l' && data->type == 'c'))
 		return (wchar_type(ap, data));
 	if (width > 0)
 		data->len += data->flags[3];
 	else
 		data->len += 1;
-	if (w != 'Z')
+	if (data->type != 'Z')
 		c = va_arg(ap, int);
 	else
-		c = w;
+		c = data->type;
 	if (data->flags[2] >= 45)
 		ft_putchar(c);
-	min_width(data, width, &w);
+	min_width(data, width, &data->type);
 	if (data->flags[2] < 45)
 		ft_putchar(c);
 }

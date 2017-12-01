@@ -20,15 +20,15 @@ void		check_type(char t, va_list ap, t_pf *data)
 	if (t == '%')
 		percent_type(data);
 	else if (t == 's' || t == 'S')
-		s_type(ap, data, t);
+		s_type(ap, data);
 	else if (t == 'd' || t == 'i' || t == 'D')
 		di_type(ap, data);
 	else if (t == 'u' || t == 'U')
 		u_type(ap, data);
 	else if (t == 'c' || t == 'C' || t == 'Z')
-		c_type(ap, data, t);
+		c_type(ap, data);
 	else if (t == 'o' || t == 'x' || t == 'X' || t == 'O')
-		ox_type(ap, data, t);
+		ox_type(ap, data);
 	else if (t == 'b')
 		b_type(ap, data);
 	else if (t == 'p')

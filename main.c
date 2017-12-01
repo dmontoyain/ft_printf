@@ -22,7 +22,7 @@ int main()
 	//ft_putnbr(sizeof(str2));
 	//ft_putnbr(sizeof(w));
 	int i;
-//	int j;
+	int j;
 	//wchar_t *hex =  L"hola";
 	//wchar_t str = L'ᴚ';
 	//int hex2 = 1112066;
@@ -32,10 +32,10 @@ int main()
 	//ft_putstr("\n");
 	//ft_putchar(sizeof(hex2));
 	//char c = 'o';
-	i = ft_printf("%C", 50000);
-//	j = wprintf(L"Ββ");
-//	printf("my: %d\n", i);
-//	printf("ur: %d", j);
+	i = ft_printf("%C", -1);
+	j = printf("%C", -1);
+	printf("my: %d\n", i);
+	printf("ur: %d", j);
 //	printf("@moulitest: %e\n", -42.8);
 	//ft_printf("int: %b,\x1b[35m this is a \x1b[32m string: %15s, i love \x1b[33meveryone\n", hex, str2);
 //	ft_putnbr(printf("%%%\n"));

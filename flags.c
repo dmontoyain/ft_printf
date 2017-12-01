@@ -38,7 +38,11 @@ int		hash_flag(const char *restrict s, int flag, int end)
 	while (flag < end)
 	{
 		if (s[flag] == '#')
+		{
+			if (s[end] == 'X' || s[end] == 'x')
+				return (2);
 			return (1);
+		}
 		if (ft_isdigit(s[flag]) != 0)
 			break ;
 		flag++;

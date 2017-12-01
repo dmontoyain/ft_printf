@@ -33,13 +33,13 @@ typedef struct		s_pf
 }					t_pf;
 
 int					ft_printf(const char *restrict format, ...);
-void				s_type(va_list ap, t_pf *dat, char w);
+void				s_type(va_list ap, t_pf *data);
 void				percent_type(t_pf *data);
 void				p_type(va_list ap, t_pf *data);
 void				b_type(va_list ap, t_pf *data);
-void				c_type(va_list ap, t_pf *data, char w);
+void				c_type(va_list ap, t_pf *data);
 void				di_type(va_list ap, t_pf *data);
-void				ox_type(va_list ap, t_pf *data, char w);
+void				ox_type(va_list ap, t_pf *data);
 void				u_type(va_list ap, t_pf *data);
 void				wchar_type(va_list ap, t_pf *data);
 void				f_type(va_list ap, t_pf *data);

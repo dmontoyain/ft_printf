@@ -12,30 +12,28 @@
 
 #include "libftprintf.h"
 
-void	ox_type(va_list ap, t_pf *data, char w)
+void	ox_type(va_list ap, t_pf *a)
 {
 	int		width;
 	char	*res;
 	int		len;
 
 	width = 0;
-	if ((w == 'x' || w == 'X') && data->flags[4] == 1)
-		data->flags[4] = 2;
-	res = uitoa_base(uint_modifiers(ap, data), getbase(w));
-	undet_behavior(data, &res);
-	if (w == 'X')
+	res = uitoa_base(uint_modifiers(ap, a), getbase(a->type));
+	if (a->type == 'X')
 		str_touppercase(res);
-	if (data->flags[5] >= (len = ft_strlen(res)))
-		res = precision_adjust(res, data, len);
-	width = data->flags[3] - ft_strlen(res);
+	undet_behavior(a, &res);
+	if (a->flags[5] >= (len = ft_strlen(res)))
+		res = precision_adjust(res, a, len);
+	width = a->flags[3] - (len = ft_strlen(res));
 	if (width > 0)
-		ufield_width(width, res, data, w);
+		ufield_width(width, res, a, a->type);
 	else
 	{
-		if (data->flags[4] != 0 && (ft_atoi(res) > 0 || w == 'o' || w == 'O'))
-			prefixtype(w);
+		if (a->flags[4] != 0 && (ft_atoi(res) > 0 || a->type == 'o' || a->type == 'O'))
+			prefixtype(a->type);
 		ft_putstr(res);
-		data->len += ft_strlen(res) + data->flags[4];
+		a->len += len + a->flags[4];
 	}
 	free(res);
 }

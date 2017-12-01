@@ -78,14 +78,14 @@ void		determinestrlen(t_pf *data, int width, char *str)
 		data->len += ft_strlen(str);
 }
 
-void		s_type(va_list ap, t_pf *data, char w)
+void		s_type(va_list ap, t_pf *data)
 {
 	char	*str;
 	int		width;
 	int		tmp;
 
 	tmp = 0;
-	if ((data->mod[0] == 'l' && w == 's') || w == 'S')
+	if ((data->mod[0] == 'l' && data->type == 's') || data->type == 'S')
 		return (swchar_type(ap, data));
 	str = va_arg(ap, char *);
 	if (str == NULL)
