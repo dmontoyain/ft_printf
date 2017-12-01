@@ -47,7 +47,7 @@ void	wchar_type(va_list ap, t_pf *data)
 	ft_unicode_conv(c, str);
 	width = data->flags[3] - 1;
 	if (width > 0)
-		ifield_width(width, str, data, 'C');
+		min_width(data, width, str);
 	else
 	{
 		if (c == 0)

@@ -32,8 +32,8 @@ int main()
 	//ft_putstr("\n");
 	//ft_putchar(sizeof(hex2));
 	//char c = 'o';
-	i = ft_printf("my printf: %.4S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
-	j = printf("ur printf: %.4S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+	i = ft_printf("my printf: %4.S\n", L"我是一只猫。");
+	j = printf("ur printf: %4.S\n", L"我是一只猫。");
 	printf("my: %d\n", i);
 	printf("ur: %d", j);
 //	printf("@moulitest: %e\n", -42.8);

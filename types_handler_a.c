@@ -68,8 +68,7 @@ void		swchar_type(va_list ap, t_pf *data)
 		data->len += ft_strlen(res); //wcstrlen o strlen
 	if (width > 0)
 		min_width(data, width, res);
-	else
-		ft_putstr(res);
+	ft_putstr(res);
 	free(res);
 }
 
