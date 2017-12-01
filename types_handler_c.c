@@ -16,18 +16,18 @@ void	ft_unicode_conv(wchar_t c, char *str)
 {
 	if (c <= 0x7F)
 		str[0] = (unsigned char)c;
-	else if (c <= 0x7FF)
+	else if (c < (1 << 11))
 	{
 		str[0] = (unsigned char)((c >> 6) | 0xC0);
 		str[1] = (unsigned char)((c & 0x3F) | 0x80);
 	}
-	else if (c <= 0xFFFF)
+	else if (c < (1 << 16))
 	{
 		str[0] = (unsigned char)(((c >> 12)) | 0xE0);
 		str[1] = (unsigned char)(((c >> 6) & 0x3F) | 0x80);
 		str[2] = (unsigned char)((c & 0x3F) | 0x80);
 	}
-	else if (c <= 0x10FFFF)
+	else if (c < (1 << 21))
 	{
 		str[0] = (unsigned char)(((c >> 18)) | 0xF0);
 		str[1] = (unsigned char)(((c >> 12) & 0x3F) | 0x80);
