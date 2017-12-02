@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 22:10:43 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/12/01 18:09:00 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 21:18:02 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	ox_type(va_list ap, t_pf *a)
 		ufield_width(width, res, a, a->type);
 	else
 	{
-		if (a->flags[4] != 0 && (ft_atoi(res) > 0 || a->type == 'o' || a->type == 'O'))
+		if (a->flags[4] != 0 &&
+			(ft_atoi(res) > 0 || a->type == 'o' || a->type == 'O'))
 			prefixtype(a->type);
 		ft_putstr(res);
 		a->len += len + a->flags[4];

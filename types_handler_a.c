@@ -39,6 +39,7 @@ void		swchar_type(va_list ap, t_pf *data)
 	res = ft_strnew(ft_wcstrlen(wstr));
 	wstrtostr(wstr, res);
 	undet_behavior(data, &res);
+	swchar_precision(data, wstr);
 	if ((data->flags[5] < (int)ft_strlen(res)) && data->flags[6] == 1)
 		res = ft_strsub(res, 0, data->flags[5]);
 	width = data->flags[3] - ft_strlen(res);

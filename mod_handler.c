@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 16:47:14 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/29 16:11:14 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 21:40:54 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ intmax_t	sint_modifiers(va_list ap, t_pf *data)
 {
 	if (data->mod[0] == 'l' && data->mod[1] == 'l')
 		return (va_arg(ap, long long int));
+	if (data->mod[0] == 'h' && data->mod[1] == 'h'
+		&& data->type == 'D')
+		return (va_arg(ap, unsigned long));
 	if (data->mod[0] == 'h' && data->mod[1] == 'h')
 		return ((signed char)va_arg(ap, int));
 	if (data->mod[0] == 'l' || data->type == 'D')
@@ -40,6 +43,9 @@ uintmax_t	uint_modifiers(va_list ap, t_pf *data)
 		return (va_arg(ap, unsigned long long));
 	if (data->mod[i] == 'l' && data->type == 'U')
 		return (va_arg(ap, unsigned long long));
+	if (data->mod[i] == 'h' && data->mod[i + 1] == 'h'
+		&& (data->type == 'O' || data->type == 'U'))
+		return (va_arg(ap, unsigned long));
 	if (data->mod[i] == 'h' && data->mod[i + 1] == 'h')
 		return ((unsigned char)va_arg(ap, int));
 	if (data->mod[i] == 'l' || data->type == 'U' || data->type == 'O')
