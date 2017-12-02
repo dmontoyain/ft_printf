@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 21:51:43 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/27 20:30:02 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 18:04:38 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ void		swchar_type(va_list ap, t_pf *data)
 	char	*res;
 	wchar_t	*wstr;
 
+	data->type = 's';
 	if (!(wstr = va_arg(ap, wchar_t *)))
 	{
 		data->len += 6;
-		return(ft_putstr("(null)"));
+		return (ft_putstr("(null)"));
 	}
 	res = ft_strnew(ft_wcstrlen(wstr));
 	wstrtostr(wstr, res);
@@ -55,7 +56,7 @@ void		s_type(va_list ap, t_pf *data)
 {
 	char	*str;
 	int		width;
-	char 	*tmp;
+	char	*tmp;
 
 	if ((data->mod[0] == 'l' && data->type == 's') || data->type == 'S')
 		return (swchar_type(ap, data));
@@ -65,7 +66,7 @@ void		s_type(va_list ap, t_pf *data)
 		str = ft_strdup("(null)");
 	undet_behavior(data, &str);
 	if (data->flags[5] > 0 && data->flags[5] < (int)ft_strlen(str))
-			str = ft_strsub(str, 0, data->flags[5]);
+		str = ft_strsub(str, 0, data->flags[5]);
 	width = data->flags[3] - ft_strlen(str);
 	if (width > 0)
 		ufield_width(width, str, data, 's');

@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 16:52:59 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/12/01 16:53:23 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 17:46:37 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_unicode_conv(wchar_t c, char *str)
 	}
 }
 
-void		wstrtostr(wchar_t *wstr, char *str)
+void	wstrtostr(wchar_t *wstr, char *str)
 {
 	size_t	i;
 	size_t	pos;

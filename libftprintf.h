@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:36:09 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/29 16:09:44 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 18:01:26 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define BLUE    "\x1b[34m"
 # define MAGENTA "\x1b[35m"
 # define CYAN    "\x1b[36m"
-# define EOC   	"\x1b[0m"
+# define EOC	 "\x1b[0m"
 
 typedef struct		s_pf
 {
@@ -65,8 +65,9 @@ intmax_t			sint_modifiers(va_list ap, t_pf *data);
 char				*ft_uimaxtoa(uintmax_t nb);
 char				*ft_imaxtoa(intmax_t nb);
 int					getbase(char type);
-void		wstrtostr(wchar_t *wstr, char *str);
-void	ft_unicode_conv(wchar_t c, char *str);
+void				wstrtostr(wchar_t *wstr, char *str);
+void				ft_unicode_conv(wchar_t c, char *str);
 void				put_color(char *tmp);
+void				invalid_end(t_pf *data);
 
 #endif

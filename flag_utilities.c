@@ -6,34 +6,34 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/25 21:56:29 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/27 14:17:09 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 18:04:51 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	undet_behavior(t_pf *data, char **res)
+void	undet_behavior(t_pf *d, char **res)
 {
-	if (data->type == 'C' || data->type == 'S' || data->type == 's')
-		data->flags[4] = 0;
-	if (data->flags[5] == 0 && data->flags[6] == 1 && (data->type == 's' || data->type == 'S'))
+	if (d->type == 'C' || d->type == 'S' || d->type == 's')
+		d->flags[4] = 0;
+	if (d->flags[5] == 0 && d->flags[6] == 1 && d->type == 's')
 		res[0] = ft_strnew(0);
-	if (data->flags[2] >= 45 && data->flags[1] == 1)
-		data->flags[1] = 0;
-	if (ft_atoi(res[0]) == 0 && data->flags[6] == 1 && data->flags[5] == 0)
+	if (d->flags[2] >= 45 && d->flags[1] == 1)
+		d->flags[1] = 0;
+	if (ft_atoi(res[0]) == 0 && d->flags[6] == 1 && d->flags[5] == 0)
 	{
-			res[0] = ft_strnew(0);
-			if (data->type != 'o' && data->type != 'O')
-				data->flags[4] = 0;
+		res[0] = ft_strnew(0);
+		if (d->type != 'o' && d->type != 'O')
+			d->flags[4] = 0;
 	}
-	if (data->flags[6] == 1 && data->flags[5] > 0 && data->flags[4] == 1)
-		data->flags[4] = 0;
-	if (ft_atoi(res[0]) == 0 && data->flags[6] == 0 && data->flags[4] != 0)
-		data->flags[4] = 0;
-	if (data->flags[6] == 1 && data->type != 's' && data->type != 'S' && data->type != '%')
-		data->flags[1] = 0;
-	if (data->flags[2] == 43 || data->flags[2] == 88)
-		data->flags[7] = 0;
+	if (d->flags[6] == 1 && d->flags[5] > 0 && d->flags[4] == 1)
+		d->flags[4] = 0;
+	if (ft_atoi(res[0]) == 0 && d->flags[6] == 0 && d->flags[4] != 0)
+		d->flags[4] = 0;
+	if (d->flags[6] == 1 && d->type != 's' && d->type != 'S' && d->type != '%')
+		d->flags[1] = 0;
+	if (d->flags[2] == 43 || d->flags[2] == 88)
+		d->flags[7] = 0;
 }
 
 int		search_end(const char *restrict s, int i, int x)
@@ -46,10 +46,10 @@ int		search_end(const char *restrict s, int i, int x)
 			&& s[i] != '%' && s[i] != 'Z' && s[i] != 'f' && s[i] != 'F')
 			i++;
 	else
-		while ((s[i] == '.' || s[i] == 'l' || s[i] == 'h' || s[i] == '#' 
-			|| s[i] == '-' || s[i] == '+' || s[i] == 'j' || s[i] == 'z'
-			|| ft_isdigit(s[i]) == 1 || s[i] == ' ') && s[i] != '\0')
-				i++;
+		while ((s[i] == '.' || s[i] == 'l' || s[i] == 'h' || s[i] == '#'
+				|| s[i] == '-' || s[i] == '+' || s[i] == 'j' || s[i] == 'z'
+				|| ft_isdigit(s[i]) == 1 || s[i] == ' ') && s[i] != '\0')
+			i++;
 	return (i);
 }
 

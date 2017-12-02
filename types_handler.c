@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 16:02:38 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/25 21:31:42 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 17:45:36 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ void	percent_type(t_pf *data)
 
 void	wchar_type(va_list ap, t_pf *data)
 {
-	wchar_t		c;
 	int			width;
+	wchar_t		c;
 	char		*res;
 
 	data->type = 'C';
 	c = va_arg(ap, wchar_t);
-	res = ft_strnew(ft_wcharlen(c));
-	ft_unicode_conv(c, res);
+	ft_unicode_conv(c, (res = ft_strnew(ft_wcharlen(c))));
 	undet_behavior(data, &res);
 	width = data->flags[3] - 1;
 	if (width > 0)
@@ -87,18 +86,16 @@ void	c_type(va_list ap, t_pf *data)
 void	di_type(va_list ap, t_pf *data)
 {
 	int		width;
+	int		len;
 	char	*res;
-	int		l;
 
 	res = ft_imaxtoa(sint_modifiers(ap, data));
 	undet_behavior(data, &res);
-	l = ft_strlen(res);
-	if (data->flags[5] >= l)
-		res = precision_adjust(res, data, l);
+	if (data->flags[5] >= (len = ft_strlen(res)))
+		res = precision_adjust(res, data, len);
 	if (res[0] != '-' && data->flags[7] == 1 && data->flags[2] >= 45)
 		res = ft_strjoin(" ", res);
-	width = data->flags[3] - ft_strlen(res);
-	if (width > 0)
+	if ((width = data->flags[3] - ft_strlen(res)) > 0)
 		ifield_width(width, res, data, 'd');
 	else
 	{
@@ -106,7 +103,7 @@ void	di_type(va_list ap, t_pf *data)
 			res = ft_strjoin(" ", res);
 		if (data->flags[2] == 43 && res[0] != '-')
 		{
-			data->len = data->len + 1;
+			data->len++;
 			ft_putchar('+');
 		}
 		ft_putstr(res);

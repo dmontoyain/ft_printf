@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 20:31:49 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/27 20:43:57 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 17:58:35 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ int		blank_space(const char *restrict s, int flag, int end)
 		if (s[flag++] == ' ')
 			return (1);
 	return (0);
+}
+
+void	invalid_end(t_pf *data)
+{
+	if (data->flags[3] > 0)
+	{
+		data->len += data->flags[3];
+		min_width(data, data->flags[3] - 1, "(null)");
+	}
+	else
+		data->len++;
+	ft_putchar(data->type);
 }

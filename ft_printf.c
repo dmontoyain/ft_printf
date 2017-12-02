@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 20:50:50 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/27 20:43:13 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 18:02:31 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,10 @@ void		check_type(char t, va_list ap, t_pf *data)
 	else if (t == 'f' || t == 'F')
 		f_type(ap, data);
 	else if (t != '\0')
-	{
-		if (data->flags[3] > 0)
-		{
-			data->len += data->flags[3];
-			min_width(data, data->flags[3] - 1, "(null)");
-		}
-		else
-			data->len++;
-			ft_putchar(t);
-	}
+		invalid_end(data);
 }
 
-size_t		changefontcolor(const char *restrict s, size_t i, size_t j, t_pf *data)
+size_t		fontcolor(const char *restrict s, size_t i, size_t j, t_pf *data)
 {
 	char	*tmp;
 	int		x;
@@ -82,7 +73,7 @@ int			checkstring(const char *restrict s, size_t i, t_pf *data)
 	{
 		if (s[i] == '{')
 		{
-			i = changefontcolor(s, i, j, data);
+			i = fontcolor(s, i, j, data);
 			j = i;
 		}
 		if ((s[i] == '%') || s[i + 1] == '\0')
