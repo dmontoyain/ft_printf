@@ -6,7 +6,7 @@
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 22:10:43 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/12/01 17:37:21 by dmontoya         ###   ########.fr       */
+/*   Updated: 2017/12/01 18:09:00 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	ox_type(va_list ap, t_pf *a)
 	if (a->flags[5] >= (len = ft_strlen(res)))
 		res = precision_adjust(res, a, len);
 	len = ft_strlen(res);
-	width = a->flags[3] - len);
-	if (width > 0)
+	if ((width = a->flags[3] - len) > 0)
 		ufield_width(width, res, a, a->type);
 	else
 	{
