@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types_handler_c.c                                  :+:      :+:    :+:   */
+/*   wchar_utilities.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmontoya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/20 14:37:41 by dmontoya          #+#    #+#             */
-/*   Updated: 2017/11/25 23:06:03 by dmontoya         ###   ########.fr       */
+/*   Created: 2017/12/01 16:52:59 by dmontoya          #+#    #+#             */
+/*   Updated: 2017/12/01 16:53:23 by dmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,16 @@ void	ft_unicode_conv(wchar_t c, char *str)
 	}
 }
 
-void	wchar_type(va_list ap, t_pf *data)
+void		wstrtostr(wchar_t *wstr, char *str)
 {
-	int			width;
-	wchar_t		c;
-	char		*res;
+	size_t	i;
+	size_t	pos;
 
-	data->type = 'C';
-	c = va_arg(ap, wchar_t);
-	res = ft_strnew(ft_wcharlen(c));
-	ft_unicode_conv(c, res);
-	undet_behavior(data, &res);
-	width = data->flags[3] - 1;
-	if (width > 0)
-		ufield_width(width, res, data, 'C');
-	else
+	i = 0;
+	pos = 0;
+	while (wstr[i])
 	{
-		if (c == 0)
-		{
-			ft_putchar('\0');
-			data->len++;
-		}
-		else
-		{
-			data->len += ft_strlen(res);
-			ft_putstr(res);
-		}
+		ft_unicode_conv(wstr[i], str + pos);
+		pos = pos + ft_wcharlen(wstr[i++]);
 	}
-	free(res);
 }

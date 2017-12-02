@@ -20,10 +20,10 @@ FUNCTIONS = ft_printf \
 			flag_utilities \
 			mod_handler \
 			num_utilities \
-			types_handler_c \
 			types_handler_d \
 			widthflag \
-			utilities
+			utilities \
+			wchar_utilities
 
 LIBFTFUNCTIONS = ft_putnbr \
 				ft_putchar \

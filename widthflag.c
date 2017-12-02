@@ -65,7 +65,7 @@ void	ifield_width(int width, char *res, t_pf *data, char type)
 void	ufield_width(int width, char *res, t_pf *data, char type)
 {
 	data->len += data->flags[3];
-	if (ft_strlen(res) == 0 && ft_atoi(res) == 0)
+	if (ft_strlen(res) == 0 && ft_atoi(res) == 0 && type != 's')
 		return (min_width(data, width, res));
 	if (data->flags[2] >= 45)
 	{
@@ -97,13 +97,7 @@ void	pointer_width(int width, char *res, t_pf *data)
 	}
 	if (data->flags[2] < 45 && data->flags[1] == 1)
 		ft_putstr("0x");
-	while (width-- > 0)
-	{
-		if (data->flags[1] == 1)
-			ft_putchar('0');
-		else
-			ft_putchar(' ');
-	}
+	min_width(data, width, res);
 	if (data->flags[2] < 45)
 	{
 		if (data->flags[1] != 1)
@@ -111,17 +105,4 @@ void	pointer_width(int width, char *res, t_pf *data)
 		if (res != 0)
 			ft_putstr(res);
 	}
-}
-
-int		width_flag(const char *restrict s, int flag, int end)
-{
-	int width;
-
-	width = 0;
-	while (((ft_isdigit(s[flag]) == 0) || s[flag] == '0') && flag < end)
-		if (s[flag++] == '.')
-			return (width);
-	while (ft_isdigit(s[flag]) != 0)
-		width = (width * 10) + (s[flag++] - 48);
-	return (width);
 }

@@ -15,8 +15,8 @@
 void	ox_type(va_list ap, t_pf *a)
 {
 	int		width;
-	char	*res;
 	int		len;
+	char	*res;
 
 	width = 0;
 	res = uitoa_base(uint_modifiers(ap, a), getbase(a->type));
@@ -41,8 +41,8 @@ void	ox_type(va_list ap, t_pf *a)
 void	b_type(va_list ap, t_pf *data)
 {
 	int		width;
-	char	*b;
 	int		len;
+	char	*b;
 
 	b = itoa_base(sint_modifiers(ap, data), 2);
 	len = ft_strlen(b);

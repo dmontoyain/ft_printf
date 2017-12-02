@@ -28,3 +28,11 @@ void	put_color(char *tmp)
 		ft_putstr(EOC);
 	return ;
 }
+
+int		blank_space(const char *restrict s, int flag, int end)
+{
+	while (flag < end)
+		if (s[flag++] == ' ')
+			return (1);
+	return (0);
+}

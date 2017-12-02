@@ -41,7 +41,6 @@ void				c_type(va_list ap, t_pf *data);
 void				di_type(va_list ap, t_pf *data);
 void				ox_type(va_list ap, t_pf *data);
 void				u_type(va_list ap, t_pf *data);
-void				wchar_type(va_list ap, t_pf *data);
 void				f_type(va_list ap, t_pf *data);
 void				ft_unicode_conv(wchar_t c, char *str);
 int					width_flag(const char *restrict s, int f, int e);
@@ -53,7 +52,7 @@ void				restart_modsflags(t_pf *data);
 int					search_end(const char *restrict s, int i, int x);
 void				ifield_width(int wth, char *r, t_pf *data, char type);
 void				ufield_width(int wth, char *r, t_pf *data, char type);
-void	pointer_width(int width, char *res, t_pf *data);
+void				pointer_width(int width, char *res, t_pf *data);
 char				*precision_adjust(char *str, t_pf *data, int len);
 void				prefixtype(char type);
 void				undet_behavior(t_pf *data, char **res);
@@ -66,6 +65,8 @@ intmax_t			sint_modifiers(va_list ap, t_pf *data);
 char				*ft_uimaxtoa(uintmax_t nb);
 char				*ft_imaxtoa(intmax_t nb);
 int					getbase(char type);
+void		wstrtostr(wchar_t *wstr, char *str);
+void	ft_unicode_conv(wchar_t c, char *str);
 void				put_color(char *tmp);
 
 #endif

@@ -86,10 +86,15 @@ int		precision_flag(const char *restrict s, int flag, int end, int i)
 	return (0);
 }
 
-int		blank_space(const char *restrict s, int flag, int end)
+int		width_flag(const char *restrict s, int flag, int end)
 {
-	while (flag < end)
-		if (s[flag++] == ' ')
-			return (1);
-	return (0);
+	int width;
+
+	width = 0;
+	while (((ft_isdigit(s[flag]) == 0) || s[flag] == '0') && flag < end)
+		if (s[flag++] == '.')
+			return (width);
+	while (ft_isdigit(s[flag]) != 0)
+		width = (width * 10) + (s[flag++] - 48);
+	return (width);
 }

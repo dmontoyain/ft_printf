@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <stdio.h>
 
 void		check_type(char t, va_list ap, t_pf *data)
 {

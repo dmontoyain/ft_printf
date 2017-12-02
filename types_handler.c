@@ -31,6 +31,36 @@ void	percent_type(t_pf *data)
 		ft_putchar('%');
 }
 
+void	wchar_type(va_list ap, t_pf *data)
+{
+	wchar_t		c;
+	int			width;
+	char		*res;
+
+	data->type = 'C';
+	c = va_arg(ap, wchar_t);
+	res = ft_strnew(ft_wcharlen(c));
+	ft_unicode_conv(c, res);
+	undet_behavior(data, &res);
+	width = data->flags[3] - 1;
+	if (width > 0)
+		ufield_width(width, res, data, 'C');
+	else
+	{
+		if (c == 0)
+		{
+			ft_putchar('\0');
+			data->len++;
+		}
+		else
+		{
+			data->len += ft_strlen(res);
+			ft_putstr(res);
+		}
+	}
+	free(res);
+}
+
 void	c_type(va_list ap, t_pf *data)
 {
 	unsigned char	c;
